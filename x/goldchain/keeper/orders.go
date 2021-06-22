@@ -43,10 +43,11 @@ func (k Keeper) CreateOrder(ctx sdk.Context, buyer sdk.AccAddress, amount sdk.Co
 		return sdkerrors.Wrapf(types.ErrInsufficientFunds, "MsgBuyGold: Insufficient Funds.")
 	}
 	goldAmount := buyAmount / GoldPrice
+	netPrice := goldAmount * GoldPrice
 	currentGold := ctx.KVStore(k.storeKey).Get(buyer.Bytes())
 	newGoldAmount := ByteArrayToInt(currentGold) + goldAmount
 	ctx.KVStore(k.storeKey).Set(buyer.Bytes(), IntToByteArray(newGoldAmount))
-	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, buyer, types.ModuleName, amount)
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, buyer, types.ModuleName, sdk.NewCoins(sdk.NewCoin("token", sdk.NewIntFromUint64(netPrice))))
 	if err != nil {
 		return err
 	}
