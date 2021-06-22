@@ -4,10 +4,23 @@ package traviolus.goldchain.goldchain;
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/traviolus/goldchain/x/goldchain/types";
+import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
 
 // Msg defines the Msg service.
 service Msg {
-    // this line is used by starport scaffolding # proto/tx/rpc
+  // this line is used by starport scaffolding # proto/tx/rpc
+  rpc BuyGold(MsgBuyGold) returns (MsgBuyGoldResponse);
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgBuyGold {
+  option (gogoproto.equal) = true;
+  string buyer_address = 1;
+  repeated cosmos.base.v1beta1.Coin amount = 2 [
+    (gogoproto.nullable) = false,
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ];
+}
+
+message MsgBuyGoldResponse {}

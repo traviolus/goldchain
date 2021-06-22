@@ -10,4 +10,7 @@ import (
 var (
 	ErrSample = sdkerrors.Register(ModuleName, 1100, "sample error")
 	// this line is used by starport scaffolding # ibc/errors
+	ErrInvalidBasicMsg   = sdkerrors.Register(ModuleName, 1, "InvalidBasicMsg")
+	ErrInvalidAddress    = sdkerrors.Register(ModuleName, 2, "InvalidAdrress")
+	ErrInsufficientFunds = sdkerrors.Register(ModuleName, 3, "InsufficientFunds")
 )

@@ -2,12 +2,16 @@ package cli
 
 import (
 	"fmt"
+	"github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/cosmos/cosmos-sdk/client/tx"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"strings"
 	"time"
 
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
-	// "github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/cosmos/cosmos-sdk/version"
 	"github.com/traviolus/goldchain/x/goldchain/types"
 )
 
@@ -30,6 +34,41 @@ func GetTxCmd() *cobra.Command {
 	}
 
 	// this line is used by starport scaffolding # 1
+	cmd.AddCommand(
+		GetCmdBuyGold(),
+	)
+
+	return cmd
+}
+
+func GetCmdBuyGold() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "buy [amount]",
+		Short: "Buy some gold",
+		Args:  cobra.ExactArgs(1),
+		Long:  strings.TrimSpace(fmt.Sprintf(`Buy some gold. Usage: $ %s tx goldchain buy 1000uatom`, version.AppName)),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx, err := client.GetClientTxContext(cmd)
+
+			amount, err := sdk.ParseCoinsNormalized(args[0])
+			if err != nil {
+				return err
+			}
+
+			msg := types.NewMsgBuyGold(
+				clientCtx.GetFromAddress(),
+				amount,
+			)
+
+			err = msg.ValidateBasic()
+			if err != nil {
+				return err
+			}
+
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+		},
+	}
+	flags.AddTxFlagsToCmd(cmd)
 
 	return cmd
 }
