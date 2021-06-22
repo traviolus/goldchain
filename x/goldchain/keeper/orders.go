@@ -1,8 +1,8 @@
 package keeper
 
 import (
-	"fmt"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/traviolus/goldchain/x/goldchain/types"
 	"unsafe"
 )
@@ -37,17 +37,15 @@ func (k Keeper) GetAccountGold(ctx sdk.Context, account sdk.AccAddress) uint64 {
 }
 
 func (k Keeper) CreateOrder(ctx sdk.Context, buyer sdk.AccAddress, amount sdk.Coins) error {
-	currentToken := k.bankKeeper.GetBalance(ctx, buyer, "token")
+	currentToken := k.bankKeeper.GetAllBalances(ctx, buyer)
 	buyAmount := amount.AmountOf("token").Uint64()
-	//if buyAmount > currentToken.AmountOf("token").Uint64() {
-	//	return sdkerrors.Wrapf(types.ErrInsufficientFunds, "MsgBuyGold: Insufficient Funds.")
-	//}
+	if buyAmount > currentToken.AmountOf("token").Uint64() {
+		return sdkerrors.Wrapf(types.ErrInsufficientFunds, "MsgBuyGold: Insufficient Funds.")
+	}
 	goldAmount := buyAmount / GoldPrice
 	currentGold := ctx.KVStore(k.storeKey).Get(buyer.Bytes())
 	newGoldAmount := ByteArrayToInt(currentGold) + goldAmount
 	ctx.KVStore(k.storeKey).Set(buyer.Bytes(), IntToByteArray(newGoldAmount))
-
-	fmt.Println(amount, currentToken)
 	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, buyer, types.ModuleName, amount)
 	if err != nil {
 		return err
