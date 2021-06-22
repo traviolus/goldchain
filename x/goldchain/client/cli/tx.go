@@ -48,7 +48,7 @@ func GetCmdBuyGold() *cobra.Command {
 		Use:   "buy [amount]",
 		Short: "Buy some gold.",
 		Args:  cobra.ExactArgs(1),
-		Long:  strings.TrimSpace(fmt.Sprintf(`Buy some gold. Usage: $ %s tx goldchain buy 1000token`, version.AppName)),
+		Long:  strings.TrimSpace(fmt.Sprintf(`Buy some gold. Usage: $ %s tx goldchain buy 100[token|gold]`, version.AppName)),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)
 

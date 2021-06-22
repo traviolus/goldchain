@@ -15,4 +15,5 @@ var (
 	ErrInsufficientFunds = sdkerrors.Register(ModuleName, 3, "InsufficientFunds")
 	ErrInvalidSellAmount = sdkerrors.Register(ModuleName, 4, "InvalidSellAmount")
 	ErrInsufficientGold  = sdkerrors.Register(ModuleName, 5, "InsufficientGold")
+	ErrInvalidDenom		 = sdkerrors.Register(ModuleName, 6, "InvalidDenominator")
 )

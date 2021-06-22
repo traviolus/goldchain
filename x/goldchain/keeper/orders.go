@@ -37,13 +37,23 @@ func (k Keeper) GetAccountGold(ctx sdk.Context, account sdk.AccAddress) uint64 {
 }
 
 func (k Keeper) CreateBuyOrder(ctx sdk.Context, buyer sdk.AccAddress, amount sdk.Coins) error {
+	var buyAmount, goldAmount, netPrice uint64
+	switch amount.GetDenomByIndex(0) {
+	case "token":
+		buyAmount = amount.AmountOf("token").Uint64()
+		goldAmount = buyAmount / GoldPrice
+		netPrice = goldAmount * GoldPrice
+	case "gold":
+		goldAmount = amount.AmountOf("gold").Uint64()
+		buyAmount = goldAmount * GoldPrice
+		netPrice = buyAmount
+	default:
+		return sdkerrors.Wrapf(types.ErrInvalidDenom, "MsgBuyGold: Invalid Denominator [token|gold]")
+	}
 	currentToken := k.bankKeeper.GetAllBalances(ctx, buyer)
-	buyAmount := amount.AmountOf("token").Uint64()
 	if buyAmount > currentToken.AmountOf("token").Uint64() {
 		return sdkerrors.Wrapf(types.ErrInsufficientFunds, "MsgBuyGold: Insufficient Funds.")
 	}
-	goldAmount := buyAmount / GoldPrice
-	netPrice := goldAmount * GoldPrice
 	currentGold := ctx.KVStore(k.storeKey).Get(buyer.Bytes())
 	newGoldAmount := ByteArrayToInt(currentGold) + goldAmount
 	ctx.KVStore(k.storeKey).Set(buyer.Bytes(), IntToByteArray(newGoldAmount))
