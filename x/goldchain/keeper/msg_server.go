@@ -26,10 +26,26 @@ func (k msgServer) BuyGold(goCtx context.Context, msg *types.MsgBuyGold) (*types
 		return nil, err
 	}
 
-	err = k.Keeper.CreateOrder(ctx, buyer, msg.Amount)
+	err = k.Keeper.CreateBuyOrder(ctx, buyer, msg.Amount)
 	if err != nil {
 		return nil, err
 	}
 
 	return &types.MsgBuyGoldResponse{}, nil
+}
+
+func (k msgServer) SellGold(goCtx context.Context, msg *types.MsgSellGold) (*types.MsgSellGoldResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	seller, err := sdk.AccAddressFromBech32(msg.SellerAddress)
+	if err != nil {
+		return nil, err
+	}
+
+	err = k.Keeper.CreateSellOrder(ctx, seller, msg.Amount)
+	if err != nil {
+		return nil, err
+	}
+
+	return &types.MsgSellGoldResponse{}, nil
 }

@@ -3,8 +3,10 @@ import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
 import { MsgBuyGold } from "./types/goldchain/tx";
+import { MsgSellGold } from "./types/goldchain/tx";
 const types = [
     ["/traviolus.goldchain.goldchain.MsgBuyGold", MsgBuyGold],
+    ["/traviolus.goldchain.goldchain.MsgSellGold", MsgSellGold],
 ];
 export const MissingWalletError = new Error("wallet is required");
 const registry = new Registry(types);
@@ -20,6 +22,7 @@ const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657
     return {
         signAndBroadcast: (msgs, { fee, memo } = { fee: defaultFee, memo: "" }) => client.signAndBroadcast(address, msgs, fee, memo),
         msgBuyGold: (data) => ({ typeUrl: "/traviolus.goldchain.goldchain.MsgBuyGold", value: data }),
+        msgSellGold: (data) => ({ typeUrl: "/traviolus.goldchain.goldchain.MsgSellGold", value: data }),
     };
 };
 const queryClient = async ({ addr: addr } = { addr: "http://localhost:1317" }) => {

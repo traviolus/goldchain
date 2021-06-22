@@ -11,6 +11,7 @@ import "cosmos/base/v1beta1/coin.proto";
 service Msg {
   // this line is used by starport scaffolding # proto/tx/rpc
   rpc BuyGold(MsgBuyGold) returns (MsgBuyGoldResponse);
+  rpc SellGold(MsgSellGold) returns (MsgSellGoldResponse);
 }
 
 // this line is used by starport scaffolding # proto/tx/message
@@ -24,3 +25,11 @@ message MsgBuyGold {
 }
 
 message MsgBuyGoldResponse {}
+
+message MsgSellGold {
+  option (gogoproto.equal) = true;
+  string seller_address = 1;
+  uint64 amount = 2;
+}
+
+message MsgSellGoldResponse {}

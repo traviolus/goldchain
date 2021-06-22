@@ -36,7 +36,7 @@ func (k Keeper) GetAccountGold(ctx sdk.Context, account sdk.AccAddress) uint64 {
 	return goldAmountInteger
 }
 
-func (k Keeper) CreateOrder(ctx sdk.Context, buyer sdk.AccAddress, amount sdk.Coins) error {
+func (k Keeper) CreateBuyOrder(ctx sdk.Context, buyer sdk.AccAddress, amount sdk.Coins) error {
 	currentToken := k.bankKeeper.GetAllBalances(ctx, buyer)
 	buyAmount := amount.AmountOf("token").Uint64()
 	if buyAmount > currentToken.AmountOf("token").Uint64() {
@@ -48,6 +48,21 @@ func (k Keeper) CreateOrder(ctx sdk.Context, buyer sdk.AccAddress, amount sdk.Co
 	newGoldAmount := ByteArrayToInt(currentGold) + goldAmount
 	ctx.KVStore(k.storeKey).Set(buyer.Bytes(), IntToByteArray(newGoldAmount))
 	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, buyer, types.ModuleName, sdk.NewCoins(sdk.NewCoin("token", sdk.NewIntFromUint64(netPrice))))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (k Keeper) CreateSellOrder(ctx sdk.Context, seller sdk.AccAddress, sellAmount uint64) error {
+	currentGold := ByteArrayToInt(ctx.KVStore(k.storeKey).Get(seller.Bytes()))
+	if sellAmount > currentGold {
+		return sdkerrors.Wrapf(types.ErrInsufficientGold, "MsgSellGold: Insufficient Gold.")
+	}
+	newGoldAmount := currentGold - sellAmount
+	ctx.KVStore(k.storeKey).Set(seller.Bytes(), IntToByteArray(newGoldAmount))
+	sellPrice := sellAmount * GoldPrice
+	err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, seller, sdk.NewCoins(sdk.NewCoin("token", sdk.NewIntFromUint64(sellPrice))))
 	if err != nil {
 		return err
 	}

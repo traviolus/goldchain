@@ -29490,6 +29490,8 @@ definitions:
       the connection handshake.
   traviolus.goldchain.goldchain.MsgBuyGoldResponse:
     type: object
+  traviolus.goldchain.goldchain.MsgSellGoldResponse:
+    type: object
   traviolus.goldchain.goldchain.QueryAccountGoldResponse:
     type: object
     properties:

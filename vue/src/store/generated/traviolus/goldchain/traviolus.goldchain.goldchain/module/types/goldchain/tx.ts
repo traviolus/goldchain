@@ -1,5 +1,6 @@
 /* eslint-disable */
-import { Reader, Writer } from 'protobufjs/minimal'
+import { Reader, util, configure, Writer } from 'protobufjs/minimal'
+import * as Long from 'long'
 import { Coin } from '../cosmos/base/v1beta1/coin'
 
 export const protobufPackage = 'traviolus.goldchain.goldchain'
@@ -11,6 +12,13 @@ export interface MsgBuyGold {
 }
 
 export interface MsgBuyGoldResponse {}
+
+export interface MsgSellGold {
+  sellerAddress: string
+  amount: number
+}
+
+export interface MsgSellGoldResponse {}
 
 const baseMsgBuyGold: object = { buyerAddress: '' }
 
@@ -129,10 +137,121 @@ export const MsgBuyGoldResponse = {
   }
 }
 
+const baseMsgSellGold: object = { sellerAddress: '', amount: 0 }
+
+export const MsgSellGold = {
+  encode(message: MsgSellGold, writer: Writer = Writer.create()): Writer {
+    if (message.sellerAddress !== '') {
+      writer.uint32(10).string(message.sellerAddress)
+    }
+    if (message.amount !== 0) {
+      writer.uint32(16).uint64(message.amount)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgSellGold {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgSellGold } as MsgSellGold
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.sellerAddress = reader.string()
+          break
+        case 2:
+          message.amount = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgSellGold {
+    const message = { ...baseMsgSellGold } as MsgSellGold
+    if (object.sellerAddress !== undefined && object.sellerAddress !== null) {
+      message.sellerAddress = String(object.sellerAddress)
+    } else {
+      message.sellerAddress = ''
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Number(object.amount)
+    } else {
+      message.amount = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgSellGold): unknown {
+    const obj: any = {}
+    message.sellerAddress !== undefined && (obj.sellerAddress = message.sellerAddress)
+    message.amount !== undefined && (obj.amount = message.amount)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgSellGold>): MsgSellGold {
+    const message = { ...baseMsgSellGold } as MsgSellGold
+    if (object.sellerAddress !== undefined && object.sellerAddress !== null) {
+      message.sellerAddress = object.sellerAddress
+    } else {
+      message.sellerAddress = ''
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount
+    } else {
+      message.amount = 0
+    }
+    return message
+  }
+}
+
+const baseMsgSellGoldResponse: object = {}
+
+export const MsgSellGoldResponse = {
+  encode(_: MsgSellGoldResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgSellGoldResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgSellGoldResponse } as MsgSellGoldResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgSellGoldResponse {
+    const message = { ...baseMsgSellGoldResponse } as MsgSellGoldResponse
+    return message
+  },
+
+  toJSON(_: MsgSellGoldResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgSellGoldResponse>): MsgSellGoldResponse {
+    const message = { ...baseMsgSellGoldResponse } as MsgSellGoldResponse
+    return message
+  }
+}
+
 /** Msg defines the Msg service. */
 export interface Msg {
   /** this line is used by starport scaffolding # proto/tx/rpc */
   BuyGold(request: MsgBuyGold): Promise<MsgBuyGoldResponse>
+  SellGold(request: MsgSellGold): Promise<MsgSellGoldResponse>
 }
 
 export class MsgClientImpl implements Msg {
@@ -145,11 +264,27 @@ export class MsgClientImpl implements Msg {
     const promise = this.rpc.request('traviolus.goldchain.goldchain.Msg', 'BuyGold', data)
     return promise.then((data) => MsgBuyGoldResponse.decode(new Reader(data)))
   }
+
+  SellGold(request: MsgSellGold): Promise<MsgSellGoldResponse> {
+    const data = MsgSellGold.encode(request).finish()
+    const promise = this.rpc.request('traviolus.goldchain.goldchain.Msg', 'SellGold', data)
+    return promise.then((data) => MsgSellGoldResponse.decode(new Reader(data)))
+  }
 }
 
 interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>
 }
+
+declare var self: any | undefined
+declare var window: any | undefined
+var globalThis: any = (() => {
+  if (typeof globalThis !== 'undefined') return globalThis
+  if (typeof self !== 'undefined') return self
+  if (typeof window !== 'undefined') return window
+  if (typeof global !== 'undefined') return global
+  throw 'Unable to locate global object'
+})()
 
 type Builtin = Date | Function | Uint8Array | string | number | undefined
 export type DeepPartial<T> = T extends Builtin
@@ -161,3 +296,15 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
+
+function longToNumber(long: Long): number {
+  if (long.gt(Number.MAX_SAFE_INTEGER)) {
+    throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER')
+  }
+  return long.toNumber()
+}
+
+if (util.Long !== Long) {
+  util.Long = Long as any
+  configure()
+}

@@ -13,4 +13,6 @@ var (
 	ErrInvalidBasicMsg   = sdkerrors.Register(ModuleName, 1, "InvalidBasicMsg")
 	ErrInvalidAddress    = sdkerrors.Register(ModuleName, 2, "InvalidAdrress")
 	ErrInsufficientFunds = sdkerrors.Register(ModuleName, 3, "InsufficientFunds")
+	ErrInvalidSellAmount = sdkerrors.Register(ModuleName, 4, "InvalidSellAmount")
+	ErrInsufficientGold  = sdkerrors.Register(ModuleName, 5, "InsufficientGold")
 )

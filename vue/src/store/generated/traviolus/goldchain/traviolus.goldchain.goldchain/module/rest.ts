@@ -11,6 +11,8 @@
 
 export type GoldchainMsgBuyGoldResponse = object;
 
+export type GoldchainMsgSellGoldResponse = object;
+
 export interface GoldchainQueryAccountGoldResponse {
   /** @format uint64 */
   amount?: string;

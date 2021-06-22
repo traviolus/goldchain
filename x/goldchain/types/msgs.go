@@ -7,6 +7,7 @@ import (
 
 var (
 	_ sdk.Msg = &MsgBuyGold{}
+	_ sdk.Msg = &MsgSellGold{}
 )
 
 func NewMsgBuyGold(buyer sdk.AccAddress, amount sdk.Coins) *MsgBuyGold {
@@ -37,6 +38,38 @@ func (msg MsgBuyGold) GetSigners() []sdk.AccAddress {
 }
 
 func (msg MsgBuyGold) GetSignBytes() []byte {
+	bz := ModuleCdc.MustMarshalJSON(&msg)
+	return sdk.MustSortJSON(bz)
+}
+
+func NewMsgSellGold(seller sdk.AccAddress, amount uint64) *MsgSellGold {
+	return &MsgSellGold{SellerAddress: seller.String(), Amount: amount}
+}
+
+func (MsgSellGold) Route() string { return RouterKey }
+
+func (msg MsgSellGold) Type() string { return "sell_gold" }
+
+func (msg MsgSellGold) ValidateBasic() error {
+	seller, err := sdk.AccAddressFromBech32(msg.SellerAddress)
+	if err != nil {
+		return err
+	}
+	if err := sdk.VerifyAddressFormat(seller); err != nil {
+		return sdkerrors.Wrapf(ErrInvalidAddress, "sender: %s", msg.SellerAddress)
+	}
+	if msg.Amount < uint64(1) {
+		return sdkerrors.Wrapf(ErrInvalidSellAmount, "MsgSellGold: Specified amount is invalid.")
+	}
+	return nil
+}
+
+func (msg MsgSellGold) GetSigners() []sdk.AccAddress {
+	sender, _ := sdk.AccAddressFromBech32(msg.SellerAddress)
+	return []sdk.AccAddress{sender}
+}
+
+func (msg MsgSellGold) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(&msg)
 	return sdk.MustSortJSON(bz)
 }

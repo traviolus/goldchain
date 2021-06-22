@@ -1,4 +1,5 @@
 export declare type GoldchainMsgBuyGoldResponse = object;
+export declare type GoldchainMsgSellGoldResponse = object;
 export interface GoldchainQueryAccountGoldResponse {
     /** @format uint64 */
     amount?: string;
