@@ -2,6 +2,8 @@ package keeper
 
 import (
 	"fmt"
+	authkeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
+	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
 	"github.com/tendermint/tendermint/libs/log"
 
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -18,8 +20,8 @@ type (
 		moduleAccountName	string
 		// this line is used by starport scaffolding # ibc/keeper/attribute
 
-		bankKeeper	types.BankKeeper
-		authKeeper  types.AccountKeeper
+		bankKeeper	bankkeeper.Keeper
+		authKeeper  authkeeper.AccountKeeper
 	}
 )
 
@@ -27,12 +29,16 @@ func NewKeeper(
 	cdc codec.Marshaler,
 	storeKey,
 	memKey sdk.StoreKey,
+	bankKeeper bankkeeper.Keeper,
+	authKeeper authkeeper.AccountKeeper,
 	// this line is used by starport scaffolding # ibc/keeper/parameter
-) Keeper {
-	return Keeper{
+) *Keeper {
+	return &Keeper{
 		cdc:      cdc,
 		storeKey: storeKey,
 		memKey:   memKey,
+		bankKeeper: bankKeeper,
+		authKeeper: authKeeper,
 		// this line is used by starport scaffolding # ibc/keeper/return
 	}
 }

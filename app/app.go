@@ -267,7 +267,7 @@ func New(
 		appCodec, keys[authtypes.StoreKey], app.GetSubspace(authtypes.ModuleName), authtypes.ProtoBaseAccount, maccPerms,
 	)
 	app.BankKeeper = bankkeeper.NewBaseKeeper(
-		appCodec, keys[banktypes.StoreKey], app.AccountKeeper, app.GetSubspace(banktypes.ModuleName), make(map[string]bool),
+		appCodec, keys[banktypes.StoreKey], app.AccountKeeper, app.GetSubspace(banktypes.ModuleName), app.ModuleAccountAddrs(),
 	)
 	stakingKeeper := stakingkeeper.NewKeeper(
 		appCodec, keys[stakingtypes.StoreKey], app.AccountKeeper, app.BankKeeper, app.GetSubspace(stakingtypes.ModuleName),
@@ -326,10 +326,12 @@ func New(
 
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
-	app.GoldchainKeeper = goldchainkeeper.NewKeeper(
+	app.GoldchainKeeper = *goldchainkeeper.NewKeeper(
 		appCodec,
 		keys[goldchaintypes.StoreKey],
 		keys[goldchaintypes.MemStoreKey],
+		app.BankKeeper,
+		app.AccountKeeper,
 	)
 	goldchainModule := goldchain.NewAppModule(app.GoldchainKeeper)
 
