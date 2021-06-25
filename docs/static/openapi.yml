@@ -29490,6 +29490,8 @@ definitions:
       the connection handshake.
   traviolus.goldchain.goldchain.MsgBuyGoldResponse:
     type: object
+  traviolus.goldchain.goldchain.MsgRequestDataResponse:
+    type: object
   traviolus.goldchain.goldchain.MsgSellGoldResponse:
     type: object
   traviolus.goldchain.goldchain.QueryAccountGoldResponse:
@@ -29498,3 +29500,21 @@ definitions:
       amount:
         type: string
         format: uint64
+  traviolus.goldchain.goldchain.QueryLatestGoldPriceResponse:
+    type: object
+    properties:
+      price:
+        type: string
+        format: int64
+  traviolus.goldchain.goldchain.QueryLatestRequestIDResponse:
+    type: object
+    properties:
+      requestId:
+        type: string
+        format: int64
+  traviolus.goldchain.goldchain.QueryResultResponse:
+    type: object
+    properties:
+      result:
+        type: string
+        format: int64

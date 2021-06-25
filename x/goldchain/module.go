@@ -1,8 +1,14 @@
 package goldchain
 
 import (
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	capabilitytypes "github.com/cosmos/cosmos-sdk/x/capability/types"
+	channeltypes "github.com/cosmos/cosmos-sdk/x/ibc/core/04-channel/types"
+	host "github.com/cosmos/cosmos-sdk/x/ibc/core/24-host"
+
 	// this line is used by starport scaffolding # 1
 
 	"github.com/gorilla/mux"
@@ -20,6 +26,7 @@ import (
 	"github.com/traviolus/goldchain/x/goldchain/keeper"
 	"github.com/traviolus/goldchain/x/goldchain/types"
 	// this line is used by starport scaffolding # ibc/module/import
+	oracletypes "github.com/bandprotocol/chain/v2/x/oracle/types"
 )
 
 var (
@@ -152,6 +159,132 @@ func (am AppModule) BeginBlock(_ sdk.Context, _ abci.RequestBeginBlock) {}
 
 // EndBlock executes all ABCI EndBlock logic respective to the capability module. It
 // returns no validator updates.
-func (am AppModule) EndBlock(_ sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
+func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
+	handleEndBlock(ctx, am.keeper)
 	return []abci.ValidatorUpdate{}
 }
+
+func ValidateTransferChannelParams(
+	ctx sdk.Context,
+	keeper keeper.Keeper,
+	order channeltypes.Order,
+	portID string,
+	channelID string,
+	version string,
+) error {
+	return nil
+}
+
+func (am AppModule) OnChanOpenInit(
+	ctx sdk.Context,
+	order channeltypes.Order,
+	connectionHops []string,
+	portID string,
+	channelID string,
+	chanCap *capabilitytypes.Capability,
+	counterparty channeltypes.Counterparty,
+	version string,
+) error {
+	if err := ValidateTransferChannelParams(ctx, am.keeper, order, portID, channelID, version); err != nil {
+		return err
+	}
+
+	// Claim channel capability passed back by IBC module
+	if err := am.keeper.ClaimCapability(ctx, chanCap, host.ChannelCapabilityPath(portID, channelID)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (am AppModule) OnChanOpenTry(
+	ctx sdk.Context,
+	order channeltypes.Order,
+	connectionHops []string,
+	portID,
+	channelID string,
+	chanCap *capabilitytypes.Capability,
+	counterparty channeltypes.Counterparty,
+	version,
+	counterpartyVersion string,
+) error {
+	if err := ValidateTransferChannelParams(ctx, am.keeper, order, portID, channelID, version); err != nil {
+		return err
+	}
+
+	if counterpartyVersion != types.Version {
+		return sdkerrors.Wrapf(types.ErrInvalidVersion, "invalid counterparty version: got: %s, expected %s", counterpartyVersion, types.Version)
+	}
+
+	// Module may have already claimed capability in OnChanOpenInit in the case of crossing hellos
+	// (ie chainA and chainB both call ChanOpenInit before one of them calls ChanOpenTry)
+	// If module can already authenticate the capability then module already owns it so we don't need to claim
+	// Otherwise, module does not have channel capability and we must claim it from IBC
+	if !am.keeper.AuthenticateCapability(ctx, chanCap, host.ChannelCapabilityPath(portID, channelID)) {
+		// Only claim channel capability passed back by IBC module if we do not already own it
+		if err := am.keeper.ClaimCapability(ctx, chanCap, host.ChannelCapabilityPath(portID, channelID)); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (am AppModule) OnChanOpenAck(ctx sdk.Context, portID, channelID string, counterpartyVersion string) error {
+	if counterpartyVersion != types.Version {
+		return sdkerrors.Wrapf(types.ErrInvalidVersion, "invalid counterparty version: %s, expected %s", counterpartyVersion, types.Version)
+	}
+	return nil
+}
+
+func (am AppModule) OnChanOpenConfirm(ctx sdk.Context, portID, channelID string) error {
+	return nil
+}
+
+func (am AppModule) OnChanCloseInit(ctx sdk.Context, portID, channelID string) error {
+	// Disallow user-initiated channel closing for transfer channels
+	return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "user cannot close channel")
+}
+
+func (am AppModule) OnChanCloseConfirm(ctx sdk.Context, portID, channelID string) error {
+	return nil
+}
+
+func (am AppModule) OnRecvPacket(ctx sdk.Context, packet channeltypes.Packet) (*sdk.Result, []byte, error) {
+	var data oracletypes.OracleResponsePacketData
+	if err := types.ModuleCdc.UnmarshalJSON(packet.GetData(), &data); err != nil {
+		return nil, nil, sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "cannot unmarshal Oracle response packet data: %s", err.Error())
+	}
+
+	fmt.Println("Receive result packet", hex.EncodeToString(data.Result))
+	am.keeper.SetResult(ctx, data.RequestID, data.Result)
+
+	// NOTE: acknowledgement will be written synchronously during IBC handler execution.
+	return &sdk.Result{
+		Events: ctx.EventManager().Events().ToABCIEvents(),
+	}, nil, nil
+}
+
+func (am AppModule) OnAcknowledgementPacket(ctx sdk.Context, packet channeltypes.Packet, acknowledgement []byte, ) (*sdk.Result, error) {
+	var ack channeltypes.Acknowledgement
+	if err := types.ModuleCdc.UnmarshalJSON(acknowledgement, &ack); err != nil {
+		return nil, sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "cannot unmarshal ICS-20 transfer packet acknowledgement: %v", err)
+	}
+	switch resp := ack.Response.(type) {
+	case *channeltypes.Acknowledgement_Result:
+		var oracleAck oracletypes.OracleRequestPacketAcknowledgement
+		oracletypes.ModuleCdc.MustUnmarshalJSON(resp.Result, &oracleAck)
+		am.keeper.SetLatestRequestID(ctx, oracleAck.RequestID)
+	case *channeltypes.Acknowledgement_Error:
+		// TODO
+	}
+
+	return &sdk.Result{
+		Events: ctx.EventManager().Events().ToABCIEvents(),
+	}, nil
+}
+
+func (am AppModule) OnTimeoutPacket(ctx sdk.Context, packet channeltypes.Packet) (*sdk.Result, error) {
+	return &sdk.Result{}, nil
+}
+

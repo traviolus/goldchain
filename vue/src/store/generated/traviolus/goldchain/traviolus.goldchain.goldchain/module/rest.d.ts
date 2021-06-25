@@ -1,8 +1,21 @@
 export declare type GoldchainMsgBuyGoldResponse = object;
+export declare type GoldchainMsgRequestDataResponse = object;
 export declare type GoldchainMsgSellGoldResponse = object;
 export interface GoldchainQueryAccountGoldResponse {
     /** @format uint64 */
     amount?: string;
+}
+export interface GoldchainQueryLatestGoldPriceResponse {
+    /** @format int64 */
+    price?: string;
+}
+export interface GoldchainQueryLatestRequestIDResponse {
+    /** @format int64 */
+    requestId?: string;
+}
+export interface GoldchainQueryResultResponse {
+    /** @format int64 */
+    result?: string;
 }
 export interface ProtobufAny {
     typeUrl?: string;

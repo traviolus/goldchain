@@ -117,33 +117,297 @@ func (m *QueryAccountGoldResponse) GetAmount() uint64 {
 	return 0
 }
 
+type QueryResultRequest struct {
+	RequestId int64 `protobuf:"varint,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
+}
+
+func (m *QueryResultRequest) Reset()         { *m = QueryResultRequest{} }
+func (m *QueryResultRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryResultRequest) ProtoMessage()    {}
+func (*QueryResultRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_b7eae06bb3ec9c62, []int{2}
+}
+func (m *QueryResultRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryResultRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryResultRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryResultRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryResultRequest.Merge(m, src)
+}
+func (m *QueryResultRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryResultRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryResultRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryResultRequest proto.InternalMessageInfo
+
+func (m *QueryResultRequest) GetRequestId() int64 {
+	if m != nil {
+		return m.RequestId
+	}
+	return 0
+}
+
+type QueryResultResponse struct {
+	Result int64 `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`
+}
+
+func (m *QueryResultResponse) Reset()         { *m = QueryResultResponse{} }
+func (m *QueryResultResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryResultResponse) ProtoMessage()    {}
+func (*QueryResultResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_b7eae06bb3ec9c62, []int{3}
+}
+func (m *QueryResultResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryResultResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryResultResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryResultResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryResultResponse.Merge(m, src)
+}
+func (m *QueryResultResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryResultResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryResultResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryResultResponse proto.InternalMessageInfo
+
+func (m *QueryResultResponse) GetResult() int64 {
+	if m != nil {
+		return m.Result
+	}
+	return 0
+}
+
+type QueryLatestRequestIDRequest struct {
+}
+
+func (m *QueryLatestRequestIDRequest) Reset()         { *m = QueryLatestRequestIDRequest{} }
+func (m *QueryLatestRequestIDRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryLatestRequestIDRequest) ProtoMessage()    {}
+func (*QueryLatestRequestIDRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_b7eae06bb3ec9c62, []int{4}
+}
+func (m *QueryLatestRequestIDRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryLatestRequestIDRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryLatestRequestIDRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryLatestRequestIDRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryLatestRequestIDRequest.Merge(m, src)
+}
+func (m *QueryLatestRequestIDRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryLatestRequestIDRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryLatestRequestIDRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryLatestRequestIDRequest proto.InternalMessageInfo
+
+type QueryLatestRequestIDResponse struct {
+	RequestId int64 `protobuf:"varint,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
+}
+
+func (m *QueryLatestRequestIDResponse) Reset()         { *m = QueryLatestRequestIDResponse{} }
+func (m *QueryLatestRequestIDResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryLatestRequestIDResponse) ProtoMessage()    {}
+func (*QueryLatestRequestIDResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_b7eae06bb3ec9c62, []int{5}
+}
+func (m *QueryLatestRequestIDResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryLatestRequestIDResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryLatestRequestIDResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryLatestRequestIDResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryLatestRequestIDResponse.Merge(m, src)
+}
+func (m *QueryLatestRequestIDResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryLatestRequestIDResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryLatestRequestIDResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryLatestRequestIDResponse proto.InternalMessageInfo
+
+func (m *QueryLatestRequestIDResponse) GetRequestId() int64 {
+	if m != nil {
+		return m.RequestId
+	}
+	return 0
+}
+
+type QueryLatestGoldPriceRequest struct {
+}
+
+func (m *QueryLatestGoldPriceRequest) Reset()         { *m = QueryLatestGoldPriceRequest{} }
+func (m *QueryLatestGoldPriceRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryLatestGoldPriceRequest) ProtoMessage()    {}
+func (*QueryLatestGoldPriceRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_b7eae06bb3ec9c62, []int{6}
+}
+func (m *QueryLatestGoldPriceRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryLatestGoldPriceRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryLatestGoldPriceRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryLatestGoldPriceRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryLatestGoldPriceRequest.Merge(m, src)
+}
+func (m *QueryLatestGoldPriceRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryLatestGoldPriceRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryLatestGoldPriceRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryLatestGoldPriceRequest proto.InternalMessageInfo
+
+type QueryLatestGoldPriceResponse struct {
+	Price int64 `protobuf:"varint,1,opt,name=price,proto3" json:"price,omitempty"`
+}
+
+func (m *QueryLatestGoldPriceResponse) Reset()         { *m = QueryLatestGoldPriceResponse{} }
+func (m *QueryLatestGoldPriceResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryLatestGoldPriceResponse) ProtoMessage()    {}
+func (*QueryLatestGoldPriceResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_b7eae06bb3ec9c62, []int{7}
+}
+func (m *QueryLatestGoldPriceResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryLatestGoldPriceResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryLatestGoldPriceResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryLatestGoldPriceResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryLatestGoldPriceResponse.Merge(m, src)
+}
+func (m *QueryLatestGoldPriceResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryLatestGoldPriceResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryLatestGoldPriceResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryLatestGoldPriceResponse proto.InternalMessageInfo
+
+func (m *QueryLatestGoldPriceResponse) GetPrice() int64 {
+	if m != nil {
+		return m.Price
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*QueryAccountGoldRequest)(nil), "traviolus.goldchain.goldchain.QueryAccountGoldRequest")
 	proto.RegisterType((*QueryAccountGoldResponse)(nil), "traviolus.goldchain.goldchain.QueryAccountGoldResponse")
+	proto.RegisterType((*QueryResultRequest)(nil), "traviolus.goldchain.goldchain.QueryResultRequest")
+	proto.RegisterType((*QueryResultResponse)(nil), "traviolus.goldchain.goldchain.QueryResultResponse")
+	proto.RegisterType((*QueryLatestRequestIDRequest)(nil), "traviolus.goldchain.goldchain.QueryLatestRequestIDRequest")
+	proto.RegisterType((*QueryLatestRequestIDResponse)(nil), "traviolus.goldchain.goldchain.QueryLatestRequestIDResponse")
+	proto.RegisterType((*QueryLatestGoldPriceRequest)(nil), "traviolus.goldchain.goldchain.QueryLatestGoldPriceRequest")
+	proto.RegisterType((*QueryLatestGoldPriceResponse)(nil), "traviolus.goldchain.goldchain.QueryLatestGoldPriceResponse")
 }
 
 func init() { proto.RegisterFile("goldchain/query.proto", fileDescriptor_b7eae06bb3ec9c62) }
 
 var fileDescriptor_b7eae06bb3ec9c62 = []byte{
-	// 288 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x91, 0x31, 0x4b, 0xc3, 0x40,
-	0x14, 0xc7, 0x7b, 0xa0, 0x05, 0x6f, 0x50, 0x08, 0xa8, 0xa5, 0xe8, 0x21, 0x5d, 0x14, 0x87, 0x9c,
-	0xad, 0xa0, 0x73, 0xba, 0x08, 0x6e, 0x66, 0x74, 0x91, 0x97, 0xe4, 0x48, 0x0f, 0x92, 0x7b, 0x69,
-	0xde, 0xa5, 0xd8, 0xc1, 0xd5, 0xd9, 0x8f, 0xe5, 0xd8, 0xd1, 0x51, 0x92, 0x2f, 0x22, 0xc9, 0x95,
-	0x56, 0x10, 0x05, 0xb7, 0x77, 0x3f, 0xfe, 0xbf, 0x3f, 0xef, 0xee, 0xf8, 0x61, 0x8a, 0x59, 0x12,
-	0xcf, 0x40, 0x1b, 0x39, 0xaf, 0x54, 0xb9, 0xf4, 0x8b, 0x12, 0x2d, 0x7a, 0xa7, 0xb6, 0x84, 0x85,
-	0xc6, 0xac, 0x22, 0x7f, 0x13, 0xd8, 0x4e, 0xc3, 0x93, 0x14, 0x31, 0xcd, 0x94, 0x84, 0x42, 0x4b,
-	0x30, 0x06, 0x2d, 0x58, 0x8d, 0x86, 0x9c, 0x3c, 0xbc, 0x8c, 0x91, 0x72, 0x24, 0x19, 0x01, 0x29,
-	0xd7, 0x2a, 0x17, 0xe3, 0x48, 0x59, 0x18, 0xcb, 0x02, 0x52, 0x6d, 0xba, 0xb0, 0xcb, 0x8e, 0xa6,
-	0xfc, 0xf8, 0xa1, 0x4d, 0x04, 0x71, 0x8c, 0x95, 0xb1, 0x77, 0x98, 0x25, 0xa1, 0x9a, 0x57, 0x8a,
-	0xac, 0x77, 0xce, 0x0f, 0xc0, 0xd1, 0x27, 0x48, 0x92, 0x52, 0x11, 0x0d, 0xd8, 0x19, 0xbb, 0xd8,
-	0x0b, 0xf7, 0xd7, 0x38, 0x70, 0x74, 0x34, 0xe1, 0x83, 0x9f, 0x1d, 0x54, 0xa0, 0x21, 0xe5, 0x1d,
-	0xf1, 0x3e, 0xe4, 0x2d, 0xed, 0xdc, 0x9d, 0x70, 0x7d, 0x9a, 0xbc, 0x32, 0xbe, 0xdb, 0x49, 0xde,
-	0x0b, 0xe7, 0xad, 0x11, 0x74, 0xdc, 0xbb, 0xf1, 0xff, 0xbc, 0xb9, 0xff, 0xcb, 0xb2, 0xc3, 0xdb,
-	0x7f, 0x7b, 0x6e, 0xc1, 0xe9, 0xfd, 0x7b, 0x2d, 0xd8, 0xaa, 0x16, 0xec, 0xb3, 0x16, 0xec, 0xad,
-	0x11, 0xbd, 0x55, 0x23, 0x7a, 0x1f, 0x8d, 0xe8, 0x3d, 0x5e, 0xa5, 0xda, 0xce, 0xaa, 0xc8, 0x8f,
-	0x31, 0x97, 0x9b, 0x72, 0xb9, 0xfd, 0xaf, 0xe7, 0x6f, 0xb3, 0x5d, 0x16, 0x8a, 0xa2, 0x7e, 0xf7,
-	0xa6, 0xd7, 0x5f, 0x01, 0x00, 0x00, 0xff, 0xff, 0x37, 0x0e, 0x6c, 0xac, 0xd5, 0x01, 0x00, 0x00,
+	// 438 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x94, 0x4d, 0xcf, 0xd2, 0x40,
+	0x10, 0xc7, 0x69, 0x7c, 0x1e, 0x92, 0x67, 0x0e, 0x3e, 0xc9, 0xfa, 0x46, 0x2a, 0x34, 0xa6, 0x17,
+	0x8d, 0x89, 0x5d, 0x01, 0xa3, 0x89, 0xc6, 0x03, 0xc4, 0xc4, 0x60, 0x3c, 0x68, 0x8f, 0x5e, 0xc8,
+	0xb6, 0xdd, 0x94, 0x4d, 0x4a, 0xb7, 0x74, 0xb7, 0x44, 0x0e, 0x7e, 0x01, 0x4f, 0xfa, 0xad, 0x3c,
+	0x72, 0xf4, 0x68, 0xe0, 0x8b, 0x98, 0xee, 0x2e, 0x2f, 0x05, 0x54, 0xea, 0x6d, 0xf6, 0xbf, 0xf3,
+	0xfb, 0xcf, 0xb0, 0x33, 0x14, 0xee, 0xc4, 0x3c, 0x89, 0xc2, 0x09, 0x61, 0x29, 0x9e, 0x15, 0x34,
+	0x5f, 0x78, 0x59, 0xce, 0x25, 0x47, 0x1d, 0x99, 0x93, 0x39, 0xe3, 0x49, 0x21, 0xbc, 0x6d, 0xc2,
+	0x2e, 0xb2, 0xdb, 0x31, 0xe7, 0x71, 0x42, 0x31, 0xc9, 0x18, 0x26, 0x69, 0xca, 0x25, 0x91, 0x8c,
+	0xa7, 0x42, 0xc3, 0xf6, 0xe3, 0x90, 0x8b, 0x29, 0x17, 0x38, 0x20, 0x82, 0x6a, 0x57, 0x3c, 0xef,
+	0x06, 0x54, 0x92, 0x2e, 0xce, 0x48, 0xcc, 0x52, 0x95, 0xac, 0x73, 0xdd, 0x21, 0xdc, 0xfb, 0x58,
+	0x66, 0x0c, 0xc2, 0x90, 0x17, 0xa9, 0x7c, 0xcb, 0x93, 0xc8, 0xa7, 0xb3, 0x82, 0x0a, 0x89, 0x1e,
+	0xc2, 0x35, 0xd1, 0xea, 0x98, 0x44, 0x51, 0x4e, 0x85, 0x68, 0x59, 0x0f, 0xac, 0x47, 0x57, 0xfe,
+	0x4d, 0x23, 0x0f, 0xb4, 0xea, 0xf6, 0xa0, 0x75, 0xec, 0x21, 0x32, 0x9e, 0x0a, 0x8a, 0xee, 0x42,
+	0x93, 0x4c, 0x4b, 0x55, 0xb1, 0x17, 0xbe, 0x39, 0xb9, 0x7d, 0x40, 0x8a, 0xf1, 0xa9, 0x28, 0x12,
+	0xb9, 0x29, 0xd9, 0x01, 0xc8, 0x75, 0x38, 0x66, 0x91, 0x22, 0x6e, 0xf8, 0x57, 0x46, 0x19, 0x45,
+	0xee, 0x13, 0xb8, 0x55, 0x81, 0x76, 0x35, 0x72, 0xa5, 0x18, 0xc2, 0x9c, 0xdc, 0x0e, 0xdc, 0x57,
+	0xe9, 0xef, 0x89, 0xa4, 0x62, 0x53, 0x63, 0xf4, 0xc6, 0x04, 0xee, 0x6b, 0x68, 0x9f, 0xbe, 0x36,
+	0xb6, 0xff, 0x68, 0xa6, 0xea, 0x5e, 0xfe, 0xe8, 0x0f, 0x39, 0x0b, 0xe9, 0xc6, 0xfd, 0x59, 0xc5,
+	0x7d, 0xef, 0xda, 0xb8, 0xdf, 0x86, 0xcb, 0xac, 0x14, 0x8c, 0xb1, 0x3e, 0xf4, 0xbe, 0x5f, 0xc0,
+	0xa5, 0xc2, 0xd0, 0x17, 0x80, 0x12, 0x1a, 0xa8, 0xe7, 0x42, 0xcf, 0xbd, 0xbf, 0x2e, 0x84, 0xf7,
+	0x87, 0x19, 0xda, 0x2f, 0x6a, 0x73, 0xa6, 0x3d, 0x0e, 0x4d, 0xfd, 0xca, 0xa8, 0x7b, 0x8e, 0x45,
+	0x65, 0x8c, 0x76, 0xaf, 0x0e, 0x62, 0x0a, 0x7e, 0xb5, 0xe0, 0xfa, 0x60, 0x12, 0xe8, 0xe5, 0x39,
+	0x3e, 0xa7, 0xa7, 0x6b, 0xbf, 0xfa, 0x2f, 0xf6, 0xa8, 0x99, 0xed, 0xe0, 0xea, 0x34, 0x73, 0xb8,
+	0x0c, 0x75, 0x9a, 0x39, 0xda, 0x94, 0xe1, 0xbb, 0x1f, 0x2b, 0xc7, 0x5a, 0xae, 0x1c, 0xeb, 0xd7,
+	0xca, 0xb1, 0xbe, 0xad, 0x9d, 0xc6, 0x72, 0xed, 0x34, 0x7e, 0xae, 0x9d, 0xc6, 0xa7, 0xa7, 0x31,
+	0x93, 0x93, 0x22, 0xf0, 0x42, 0x3e, 0xc5, 0xdb, 0x02, 0x78, 0xf7, 0x45, 0xf9, 0xbc, 0x17, 0xcb,
+	0x45, 0x46, 0x45, 0xd0, 0x54, 0xff, 0xfa, 0xfe, 0xef, 0x00, 0x00, 0x00, 0xff, 0xff, 0x7c, 0xd1,
+	0x6b, 0xd2, 0x77, 0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -159,6 +423,9 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type QueryClient interface {
 	GoldAmount(ctx context.Context, in *QueryAccountGoldRequest, opts ...grpc.CallOption) (*QueryAccountGoldResponse, error)
+	Result(ctx context.Context, in *QueryResultRequest, opts ...grpc.CallOption) (*QueryResultResponse, error)
+	LatestRequestID(ctx context.Context, in *QueryLatestRequestIDRequest, opts ...grpc.CallOption) (*QueryLatestRequestIDResponse, error)
+	LatestGoldPrice(ctx context.Context, in *QueryLatestGoldPriceRequest, opts ...grpc.CallOption) (*QueryLatestGoldPriceResponse, error)
 }
 
 type queryClient struct {
@@ -178,9 +445,39 @@ func (c *queryClient) GoldAmount(ctx context.Context, in *QueryAccountGoldReques
 	return out, nil
 }
 
+func (c *queryClient) Result(ctx context.Context, in *QueryResultRequest, opts ...grpc.CallOption) (*QueryResultResponse, error) {
+	out := new(QueryResultResponse)
+	err := c.cc.Invoke(ctx, "/traviolus.goldchain.goldchain.Query/Result", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) LatestRequestID(ctx context.Context, in *QueryLatestRequestIDRequest, opts ...grpc.CallOption) (*QueryLatestRequestIDResponse, error) {
+	out := new(QueryLatestRequestIDResponse)
+	err := c.cc.Invoke(ctx, "/traviolus.goldchain.goldchain.Query/LatestRequestID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) LatestGoldPrice(ctx context.Context, in *QueryLatestGoldPriceRequest, opts ...grpc.CallOption) (*QueryLatestGoldPriceResponse, error) {
+	out := new(QueryLatestGoldPriceResponse)
+	err := c.cc.Invoke(ctx, "/traviolus.goldchain.goldchain.Query/LatestGoldPrice", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 type QueryServer interface {
 	GoldAmount(context.Context, *QueryAccountGoldRequest) (*QueryAccountGoldResponse, error)
+	Result(context.Context, *QueryResultRequest) (*QueryResultResponse, error)
+	LatestRequestID(context.Context, *QueryLatestRequestIDRequest) (*QueryLatestRequestIDResponse, error)
+	LatestGoldPrice(context.Context, *QueryLatestGoldPriceRequest) (*QueryLatestGoldPriceResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -189,6 +486,15 @@ type UnimplementedQueryServer struct {
 
 func (*UnimplementedQueryServer) GoldAmount(ctx context.Context, req *QueryAccountGoldRequest) (*QueryAccountGoldResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GoldAmount not implemented")
+}
+func (*UnimplementedQueryServer) Result(ctx context.Context, req *QueryResultRequest) (*QueryResultResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Result not implemented")
+}
+func (*UnimplementedQueryServer) LatestRequestID(ctx context.Context, req *QueryLatestRequestIDRequest) (*QueryLatestRequestIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LatestRequestID not implemented")
+}
+func (*UnimplementedQueryServer) LatestGoldPrice(ctx context.Context, req *QueryLatestGoldPriceRequest) (*QueryLatestGoldPriceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LatestGoldPrice not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -213,6 +519,60 @@ func _Query_GoldAmount_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_Result_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryResultRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Result(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/traviolus.goldchain.goldchain.Query/Result",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Result(ctx, req.(*QueryResultRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_LatestRequestID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryLatestRequestIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).LatestRequestID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/traviolus.goldchain.goldchain.Query/LatestRequestID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).LatestRequestID(ctx, req.(*QueryLatestRequestIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_LatestGoldPrice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryLatestGoldPriceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).LatestGoldPrice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/traviolus.goldchain.goldchain.Query/LatestGoldPrice",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).LatestGoldPrice(ctx, req.(*QueryLatestGoldPriceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Query_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "traviolus.goldchain.goldchain.Query",
 	HandlerType: (*QueryServer)(nil),
@@ -220,6 +580,18 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GoldAmount",
 			Handler:    _Query_GoldAmount_Handler,
+		},
+		{
+			MethodName: "Result",
+			Handler:    _Query_Result_Handler,
+		},
+		{
+			MethodName: "LatestRequestID",
+			Handler:    _Query_LatestRequestID_Handler,
+		},
+		{
+			MethodName: "LatestGoldPrice",
+			Handler:    _Query_LatestGoldPrice_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -284,6 +656,164 @@ func (m *QueryAccountGoldResponse) MarshalToSizedBuffer(dAtA []byte) (int, error
 	return len(dAtA) - i, nil
 }
 
+func (m *QueryResultRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryResultRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryResultRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.RequestId != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.RequestId))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryResultResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryResultResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryResultResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Result != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.Result))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryLatestRequestIDRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryLatestRequestIDRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryLatestRequestIDRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryLatestRequestIDResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryLatestRequestIDResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryLatestRequestIDResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.RequestId != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.RequestId))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryLatestGoldPriceRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryLatestGoldPriceRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryLatestGoldPriceRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryLatestGoldPriceResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryLatestGoldPriceResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryLatestGoldPriceResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Price != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.Price))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	offset -= sovQuery(v)
 	base := offset
@@ -316,6 +846,72 @@ func (m *QueryAccountGoldResponse) Size() (n int) {
 	_ = l
 	if m.Amount != 0 {
 		n += 1 + sovQuery(uint64(m.Amount))
+	}
+	return n
+}
+
+func (m *QueryResultRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.RequestId != 0 {
+		n += 1 + sovQuery(uint64(m.RequestId))
+	}
+	return n
+}
+
+func (m *QueryResultResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Result != 0 {
+		n += 1 + sovQuery(uint64(m.Result))
+	}
+	return n
+}
+
+func (m *QueryLatestRequestIDRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *QueryLatestRequestIDResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.RequestId != 0 {
+		n += 1 + sovQuery(uint64(m.RequestId))
+	}
+	return n
+}
+
+func (m *QueryLatestGoldPriceRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *QueryLatestGoldPriceResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Price != 0 {
+		n += 1 + sovQuery(uint64(m.Price))
 	}
 	return n
 }
@@ -452,6 +1048,382 @@ func (m *QueryAccountGoldResponse) Unmarshal(dAtA []byte) error {
 				b := dAtA[iNdEx]
 				iNdEx++
 				m.Amount |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryResultRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryResultRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryResultRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RequestId", wireType)
+			}
+			m.RequestId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.RequestId |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryResultResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryResultResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryResultResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Result", wireType)
+			}
+			m.Result = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Result |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryLatestRequestIDRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryLatestRequestIDRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryLatestRequestIDRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryLatestRequestIDResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryLatestRequestIDResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryLatestRequestIDResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RequestId", wireType)
+			}
+			m.RequestId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.RequestId |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryLatestGoldPriceRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryLatestGoldPriceRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryLatestGoldPriceRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryLatestGoldPriceResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryLatestGoldPriceResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryLatestGoldPriceResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Price", wireType)
+			}
+			m.Price = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Price |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}

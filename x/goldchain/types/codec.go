@@ -14,7 +14,8 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations(
 		(*sdk.Msg)(nil),
 		&MsgBuyGold{},
-		&MsgSellGold{})
+		&MsgSellGold{},
+		&MsgRequestData{})
 	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)
 }
 
@@ -26,4 +27,5 @@ var (
 func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgBuyGold{}, "BuyGold", nil)
 	cdc.RegisterConcrete(&MsgSellGold{}, "SellGold", nil)
+	cdc.RegisterConcrete(&MsgRequestData{}, "RequestData", nil)
 }

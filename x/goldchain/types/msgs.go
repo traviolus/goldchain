@@ -1,6 +1,7 @@
 package types
 
 import (
+	bandoracle "github.com/bandprotocol/chain/v2/x/oracle/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
@@ -8,6 +9,7 @@ import (
 var (
 	_ sdk.Msg = &MsgBuyGold{}
 	_ sdk.Msg = &MsgSellGold{}
+	_ sdk.Msg = &MsgRequestData{}
 )
 
 func NewMsgBuyGold(buyer sdk.AccAddress, amount sdk.Coins) *MsgBuyGold {
@@ -70,6 +72,76 @@ func (msg MsgSellGold) GetSigners() []sdk.AccAddress {
 }
 
 func (msg MsgSellGold) GetSignBytes() []byte {
+	bz := ModuleCdc.MustMarshalJSON(&msg)
+	return sdk.MustSortJSON(bz)
+}
+
+func NewMsgRequestData(
+	oracleScriptID bandoracle.OracleScriptID,
+	sourceChannel string,
+	calldata []byte,
+	askCount uint64,
+	minCount uint64,
+	feeLimit sdk.Coins,
+	requestKey string,
+	prepareGas uint64,
+	executeGas uint64,
+	sender sdk.AccAddress,
+) *MsgRequestData {
+	return &MsgRequestData{
+		OracleScriptID: int64(oracleScriptID),
+		SourceChannel:  sourceChannel,
+		Calldata:       calldata,
+		AskCount:       askCount,
+		MinCount:       minCount,
+		FeeLimit:       feeLimit,
+		RequestKey:     requestKey,
+		PrepareGas:     prepareGas,
+		ExecuteGas:     executeGas,
+		Sender:         sender.String(),
+	}
+}
+
+func (msg MsgRequestData) Route() string { return RouterKey }
+
+func (msg MsgRequestData) Type() string { return "goldchain" }
+
+func (msg MsgRequestData) ValidateBasic() error {
+	sender, err := sdk.AccAddressFromBech32(msg.Sender)
+	if err != nil {
+		return err
+	}
+	if sender.Empty() {
+		return sdkerrors.Wrapf(ErrInvalidBasicMsg, "MsgRequestData: Sender address must not be empty.")
+	}
+	if msg.OracleScriptID <= 0 {
+		return sdkerrors.Wrapf(ErrInvalidBasicMsg, "MsgRequestData: Oracle script id (%d) must be positive.", msg.OracleScriptID)
+	}
+	if msg.AskCount <= 0 {
+		return sdkerrors.Wrapf(ErrInvalidBasicMsg,
+			"MsgRequestData: Sufficient validator count (%d) must be positive.",
+			msg.AskCount,
+		)
+	}
+	if msg.AskCount < msg.MinCount {
+		return sdkerrors.Wrapf(ErrInvalidBasicMsg,
+			"MsgRequestData: Request validator count (%d) must not be less than sufficient validator count (%d).",
+			msg.AskCount,
+			msg.MinCount,
+		)
+	}
+	return nil
+}
+
+func (msg MsgRequestData) GetSigners() []sdk.AccAddress {
+	sender, err := sdk.AccAddressFromBech32(msg.Sender)
+	if err != nil {
+		panic(err)
+	}
+	return []sdk.AccAddress{sender}
+}
+
+func (msg MsgRequestData) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(&msg)
 	return sdk.MustSortJSON(bz)
 }

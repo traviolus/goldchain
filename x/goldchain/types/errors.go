@@ -16,4 +16,6 @@ var (
 	ErrInvalidSellAmount = sdkerrors.Register(ModuleName, 4, "InvalidSellAmount")
 	ErrInsufficientGold  = sdkerrors.Register(ModuleName, 5, "InsufficientGold")
 	ErrInvalidDenom		 = sdkerrors.Register(ModuleName, 6, "InvalidDenominator")
+	ErrInvalidVersion    = sdkerrors.Register(ModuleName, 7, "invalid ICS20 version")
+	ErrItemNotFound      = sdkerrors.Register(ModuleName, 8, "ItemNotFound")
 )

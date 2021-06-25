@@ -10,6 +10,9 @@ option go_package = "github.com/traviolus/goldchain/x/goldchain/types";
 // Query defines the gRPC querier service.
 service Query {
   rpc GoldAmount(QueryAccountGoldRequest) returns (QueryAccountGoldResponse);
+  rpc Result(QueryResultRequest) returns (QueryResultResponse);
+  rpc LatestRequestID(QueryLatestRequestIDRequest) returns (QueryLatestRequestIDResponse);
+  rpc LatestGoldPrice(QueryLatestGoldPriceRequest) returns (QueryLatestGoldPriceResponse);
   // this line is used by starport scaffolding # 2
 }
 
@@ -20,4 +23,25 @@ message QueryAccountGoldRequest {
 message QueryAccountGoldResponse {
   uint64 amount = 1;
 }
+
+message QueryResultRequest {
+  int64 request_id = 1;
+}
+
+message QueryResultResponse {
+  int64 result = 1;
+}
+
+message QueryLatestRequestIDRequest {}
+
+message QueryLatestRequestIDResponse {
+  int64 request_id = 1;
+}
+
+message QueryLatestGoldPriceRequest {}
+
+message QueryLatestGoldPriceResponse {
+  int64 price = 1;
+}
+
 // this line is used by starport scaffolding # 3

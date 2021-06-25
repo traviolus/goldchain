@@ -14,6 +14,20 @@ export interface MsgSellGold {
 }
 export interface MsgSellGoldResponse {
 }
+export interface MsgRequestData {
+    oracleScriptId: number;
+    sourceChannel: string;
+    calldata: Uint8Array;
+    askCount: number;
+    minCount: number;
+    feeLimit: Coin[];
+    requestKey: string;
+    prepareGas: number;
+    executeGas: number;
+    sender: string;
+}
+export interface MsgRequestDataResponse {
+}
 export declare const MsgBuyGold: {
     encode(message: MsgBuyGold, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgBuyGold;
@@ -42,17 +56,33 @@ export declare const MsgSellGoldResponse: {
     toJSON(_: MsgSellGoldResponse): unknown;
     fromPartial(_: DeepPartial<MsgSellGoldResponse>): MsgSellGoldResponse;
 };
+export declare const MsgRequestData: {
+    encode(message: MsgRequestData, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgRequestData;
+    fromJSON(object: any): MsgRequestData;
+    toJSON(message: MsgRequestData): unknown;
+    fromPartial(object: DeepPartial<MsgRequestData>): MsgRequestData;
+};
+export declare const MsgRequestDataResponse: {
+    encode(_: MsgRequestDataResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgRequestDataResponse;
+    fromJSON(_: any): MsgRequestDataResponse;
+    toJSON(_: MsgRequestDataResponse): unknown;
+    fromPartial(_: DeepPartial<MsgRequestDataResponse>): MsgRequestDataResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     /** this line is used by starport scaffolding # proto/tx/rpc */
     BuyGold(request: MsgBuyGold): Promise<MsgBuyGoldResponse>;
     SellGold(request: MsgSellGold): Promise<MsgSellGoldResponse>;
+    RequestData(request: MsgRequestData): Promise<MsgRequestDataResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
     constructor(rpc: Rpc);
     BuyGold(request: MsgBuyGold): Promise<MsgBuyGoldResponse>;
     SellGold(request: MsgSellGold): Promise<MsgSellGoldResponse>;
+    RequestData(request: MsgRequestData): Promise<MsgRequestDataResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

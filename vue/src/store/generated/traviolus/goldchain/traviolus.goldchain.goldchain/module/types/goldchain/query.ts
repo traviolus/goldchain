@@ -12,6 +12,26 @@ export interface QueryAccountGoldResponse {
   amount: number
 }
 
+export interface QueryResultRequest {
+  requestId: number
+}
+
+export interface QueryResultResponse {
+  result: number
+}
+
+export interface QueryLatestRequestIDRequest {}
+
+export interface QueryLatestRequestIDResponse {
+  requestId: number
+}
+
+export interface QueryLatestGoldPriceRequest {}
+
+export interface QueryLatestGoldPriceResponse {
+  price: number
+}
+
 const baseQueryAccountGoldRequest: object = { accountAddress: '' }
 
 export const QueryAccountGoldRequest = {
@@ -122,10 +142,309 @@ export const QueryAccountGoldResponse = {
   }
 }
 
+const baseQueryResultRequest: object = { requestId: 0 }
+
+export const QueryResultRequest = {
+  encode(message: QueryResultRequest, writer: Writer = Writer.create()): Writer {
+    if (message.requestId !== 0) {
+      writer.uint32(8).int64(message.requestId)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryResultRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryResultRequest } as QueryResultRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.requestId = longToNumber(reader.int64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryResultRequest {
+    const message = { ...baseQueryResultRequest } as QueryResultRequest
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = Number(object.requestId)
+    } else {
+      message.requestId = 0
+    }
+    return message
+  },
+
+  toJSON(message: QueryResultRequest): unknown {
+    const obj: any = {}
+    message.requestId !== undefined && (obj.requestId = message.requestId)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryResultRequest>): QueryResultRequest {
+    const message = { ...baseQueryResultRequest } as QueryResultRequest
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = object.requestId
+    } else {
+      message.requestId = 0
+    }
+    return message
+  }
+}
+
+const baseQueryResultResponse: object = { result: 0 }
+
+export const QueryResultResponse = {
+  encode(message: QueryResultResponse, writer: Writer = Writer.create()): Writer {
+    if (message.result !== 0) {
+      writer.uint32(8).int64(message.result)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryResultResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryResultResponse } as QueryResultResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.result = longToNumber(reader.int64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryResultResponse {
+    const message = { ...baseQueryResultResponse } as QueryResultResponse
+    if (object.result !== undefined && object.result !== null) {
+      message.result = Number(object.result)
+    } else {
+      message.result = 0
+    }
+    return message
+  },
+
+  toJSON(message: QueryResultResponse): unknown {
+    const obj: any = {}
+    message.result !== undefined && (obj.result = message.result)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryResultResponse>): QueryResultResponse {
+    const message = { ...baseQueryResultResponse } as QueryResultResponse
+    if (object.result !== undefined && object.result !== null) {
+      message.result = object.result
+    } else {
+      message.result = 0
+    }
+    return message
+  }
+}
+
+const baseQueryLatestRequestIDRequest: object = {}
+
+export const QueryLatestRequestIDRequest = {
+  encode(_: QueryLatestRequestIDRequest, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryLatestRequestIDRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryLatestRequestIDRequest } as QueryLatestRequestIDRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): QueryLatestRequestIDRequest {
+    const message = { ...baseQueryLatestRequestIDRequest } as QueryLatestRequestIDRequest
+    return message
+  },
+
+  toJSON(_: QueryLatestRequestIDRequest): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<QueryLatestRequestIDRequest>): QueryLatestRequestIDRequest {
+    const message = { ...baseQueryLatestRequestIDRequest } as QueryLatestRequestIDRequest
+    return message
+  }
+}
+
+const baseQueryLatestRequestIDResponse: object = { requestId: 0 }
+
+export const QueryLatestRequestIDResponse = {
+  encode(message: QueryLatestRequestIDResponse, writer: Writer = Writer.create()): Writer {
+    if (message.requestId !== 0) {
+      writer.uint32(8).int64(message.requestId)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryLatestRequestIDResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryLatestRequestIDResponse } as QueryLatestRequestIDResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.requestId = longToNumber(reader.int64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryLatestRequestIDResponse {
+    const message = { ...baseQueryLatestRequestIDResponse } as QueryLatestRequestIDResponse
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = Number(object.requestId)
+    } else {
+      message.requestId = 0
+    }
+    return message
+  },
+
+  toJSON(message: QueryLatestRequestIDResponse): unknown {
+    const obj: any = {}
+    message.requestId !== undefined && (obj.requestId = message.requestId)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryLatestRequestIDResponse>): QueryLatestRequestIDResponse {
+    const message = { ...baseQueryLatestRequestIDResponse } as QueryLatestRequestIDResponse
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = object.requestId
+    } else {
+      message.requestId = 0
+    }
+    return message
+  }
+}
+
+const baseQueryLatestGoldPriceRequest: object = {}
+
+export const QueryLatestGoldPriceRequest = {
+  encode(_: QueryLatestGoldPriceRequest, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryLatestGoldPriceRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryLatestGoldPriceRequest } as QueryLatestGoldPriceRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): QueryLatestGoldPriceRequest {
+    const message = { ...baseQueryLatestGoldPriceRequest } as QueryLatestGoldPriceRequest
+    return message
+  },
+
+  toJSON(_: QueryLatestGoldPriceRequest): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<QueryLatestGoldPriceRequest>): QueryLatestGoldPriceRequest {
+    const message = { ...baseQueryLatestGoldPriceRequest } as QueryLatestGoldPriceRequest
+    return message
+  }
+}
+
+const baseQueryLatestGoldPriceResponse: object = { price: 0 }
+
+export const QueryLatestGoldPriceResponse = {
+  encode(message: QueryLatestGoldPriceResponse, writer: Writer = Writer.create()): Writer {
+    if (message.price !== 0) {
+      writer.uint32(8).int64(message.price)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryLatestGoldPriceResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryLatestGoldPriceResponse } as QueryLatestGoldPriceResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.price = longToNumber(reader.int64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryLatestGoldPriceResponse {
+    const message = { ...baseQueryLatestGoldPriceResponse } as QueryLatestGoldPriceResponse
+    if (object.price !== undefined && object.price !== null) {
+      message.price = Number(object.price)
+    } else {
+      message.price = 0
+    }
+    return message
+  },
+
+  toJSON(message: QueryLatestGoldPriceResponse): unknown {
+    const obj: any = {}
+    message.price !== undefined && (obj.price = message.price)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryLatestGoldPriceResponse>): QueryLatestGoldPriceResponse {
+    const message = { ...baseQueryLatestGoldPriceResponse } as QueryLatestGoldPriceResponse
+    if (object.price !== undefined && object.price !== null) {
+      message.price = object.price
+    } else {
+      message.price = 0
+    }
+    return message
+  }
+}
+
 /** Query defines the gRPC querier service. */
 export interface Query {
-  /** this line is used by starport scaffolding # 2 */
   GoldAmount(request: QueryAccountGoldRequest): Promise<QueryAccountGoldResponse>
+  Result(request: QueryResultRequest): Promise<QueryResultResponse>
+  LatestRequestID(request: QueryLatestRequestIDRequest): Promise<QueryLatestRequestIDResponse>
+  /** this line is used by starport scaffolding # 2 */
+  LatestGoldPrice(request: QueryLatestGoldPriceRequest): Promise<QueryLatestGoldPriceResponse>
 }
 
 export class QueryClientImpl implements Query {
@@ -137,6 +456,24 @@ export class QueryClientImpl implements Query {
     const data = QueryAccountGoldRequest.encode(request).finish()
     const promise = this.rpc.request('traviolus.goldchain.goldchain.Query', 'GoldAmount', data)
     return promise.then((data) => QueryAccountGoldResponse.decode(new Reader(data)))
+  }
+
+  Result(request: QueryResultRequest): Promise<QueryResultResponse> {
+    const data = QueryResultRequest.encode(request).finish()
+    const promise = this.rpc.request('traviolus.goldchain.goldchain.Query', 'Result', data)
+    return promise.then((data) => QueryResultResponse.decode(new Reader(data)))
+  }
+
+  LatestRequestID(request: QueryLatestRequestIDRequest): Promise<QueryLatestRequestIDResponse> {
+    const data = QueryLatestRequestIDRequest.encode(request).finish()
+    const promise = this.rpc.request('traviolus.goldchain.goldchain.Query', 'LatestRequestID', data)
+    return promise.then((data) => QueryLatestRequestIDResponse.decode(new Reader(data)))
+  }
+
+  LatestGoldPrice(request: QueryLatestGoldPriceRequest): Promise<QueryLatestGoldPriceResponse> {
+    const data = QueryLatestGoldPriceRequest.encode(request).finish()
+    const promise = this.rpc.request('traviolus.goldchain.goldchain.Query', 'LatestGoldPrice', data)
+    return promise.then((data) => QueryLatestGoldPriceResponse.decode(new Reader(data)))
   }
 }
 
